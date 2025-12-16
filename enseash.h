@@ -1,5 +1,5 @@
-#define MAX_LENGHT 64    //Maximal number of carcater by command
-#define welcome "Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\n" //welcome message
+#define MAX_LENGHT 64                                                               //Maximal number of charcater by command
+#define welcome "Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\n"     //welcome message
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -13,3 +13,5 @@
 
 void print(char *str);
 void read_function(char *buffer);
+void int_to_ASCII(int n, char s[]);
+void reverse(char s[]);
