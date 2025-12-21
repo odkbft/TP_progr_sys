@@ -1,5 +1,6 @@
 #include "enseash.h"
 char buffer[MAX_LENGHT];
+char * command[MAX_LENGHT];
 struct timespec time_start;
 struct timespec time_end;
 
@@ -31,6 +32,9 @@ int main(void){
         }
 
         read_function(buffer);
+
+        separate_command(buffer,command);                                   //we separate each word of the buffer and we put them in a char ** command
+
         if (strncmp(buffer,"exit\0",MAX_LENGHT)==0){                        //if we type "exit" we go out the shell
             print("Bye bye ...\n");
             exit(EXIT_SUCCESS);
@@ -45,8 +49,9 @@ int main(void){
             exit(EXIT_FAILURE);
         }
         else if (pid==0){                                                  //son process
-            execlp(buffer, buffer, (char *) NULL);                          //the execlp is supposed to replace the son process(the son become the command)
-            perror("exceclp error");                                        //if not it's an error
+            execvp(command[0], command);                                    //the execvp is supposed to replace the son process(the son become the command)
+            //execvp take 2 arguments : the name of the command and the command and all the arguments.
+            perror("excecvp error");                                        //if not it's an error
             exit(EXIT_FAILURE);
         }
         else if (pid>0){                                                    //father process

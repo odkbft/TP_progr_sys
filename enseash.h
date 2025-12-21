@@ -20,3 +20,4 @@ void start_timer(void);
 void end_timer(void);
 int time_calculation(int time_start_s,int time_start_ns,int time_end_s,int time_end_ns);
 void print_time(int time_start_s,int time_start_ns,int time_end_s,int time_end_ns,char * converted_time_in_characters);
+void separate_command(char * buffer,char ** command);
