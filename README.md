@@ -1,11 +1,26 @@
-TP Programmation système | Mohamed Amine EL MESTARI | Hugo MÉRIAUX
+## TP Programmation système | Mohamed Amine EL MESTARI | Hugo MÉRIAUX
 
-Question 1 : Étant donné que l'on ne peut pas utiliser directement la fonction printf, le but est de créer une fonction print capable d'écrire dans le terminal une chaine de caractère (en utilisant la fonction write).
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
-Question 2 : Ici le but est de créer un fork à chaaque boucle, le fils va lire si l'utilisateur envoie une nouvelle commande (via la fonction read) et ensuite executer cette commande dans le terminal grace à la fonction execlp. Cette fonction va prendre le rôle du fils, puis le fils va mourir une fois cette fonction executée. Pendant ce temps, le père attends que le fils meurt puis on recommence une nouvelle boucle. L'utilisateur vient valider sa commande avec la touche entrée qui correspond au caractère "\n" il faut donc remplacer ce caractère par un caractère de fin de ligne "\0" pour que execlp puisse comprendre la commande.
+**Question 1 :** Étant donné que l'on ne peut pas utiliser directement la fonction `printf`, le but est de créer une fonction print capable d'écrire dans le terminal une chaine de caractère (en utilisant la fonction `write`).
 
-Question 3 : La question 3 consiste à gérer la sortie du terminal. Si l'utilisateur tape "exit" (plus exactement "exit\0" avec le caractère de fin de ligne ajouté dans notre fonction 'read_function') dans le terminal alors on renvoie exit(EXIT_SUCCESS) et on sort du terminal. De la même manière si l'utilisateur vient effectuer la commande CTRL + D ce qui transmet un signal EOF(End Of File) alors la fonction read va renvoyer 0 et dans ce cas là on sort également du terminal.
+-----------------------------------------------------------------------------------------
 
-Question 4 : Ici on doit print les codes et les signaux mais le problème c'est que l'on ne dispose pas de fonction printf et notre fonction print créée précedemment ne prend comme entrée que des chaînes de caracatères. Le but est donc de créer une fonction 'int_to_ASCII' qui va transformer notre entier en une chaîne de caractère que l'on pourra alors print. On récupère les codes et les signaux avec les variables 'WEXITSTATUS(status)' et 'WTERMSIG(status)'.
+**Question 2 :** Ici le but est de créer un fork à chaaque boucle, le fils va lire si l'utilisateur envoie une nouvelle commande (via la fonction `read`) et ensuite executer cette commande dans le terminal grace à la fonction `execlp`. Cette fonction va prendre le rôle du fils, puis le fils va mourir une fois cette fonction executée. Pendant ce temps, le père attends que le fils meurt puis on recommence une nouvelle boucle. L'utilisateur vient valider sa commande avec la touche entrée qui correspond au caractère `\n` il faut donc remplacer ce caractère par un caractère de fin de ligne `\0` pour que `execlp` puisse comprendre la commande.
 
-Question 5 : Pour cette question, il faut utiliser la fonction clock_gettime() qui vient stocker une valeur d'horloge dans une structure timespec. On vient donc créer 2 instances de cette structure une pour le debut du temps et une pour la fin. On place la mesure du début avant l'execution de la commande et la fin après la commande. On vient ensuite affichr dans notre terminal la différence entre ces deux mesures ce qu ireprésente donc le temps d'éxecution de la commande.
+-----------------------------------------------------------------------------------------
+
+**Question 3 :** La question 3 consiste à gérer la sortie du terminal. Si l'utilisateur tape `exit` (plus exactement `exit\0` avec le caractère de fin de ligne ajouté dans notre fonction `read_function`) dans le terminal alors on renvoie `exit(EXIT_SUCCESS)` et on sort du terminal. De la même manière si l'utilisateur vient effectuer la commande `CTRL + D` ce qui transmet un signal EOF(End Of File) alors la fonction `read` va renvoyer `0` et dans ce cas là on sort également du terminal.
+
+-----------------------------------------------------------------------------------------
+
+**Question 4 :** Ici on doit print les codes et les signaux mais le problème c'est que l'on ne dispose pas de fonction `printf` et notre fonction `print` créée précedemment ne prend comme entrée que des chaînes de caracatères. Le but est donc de créer une fonction `int_to_ASCII` qui va transformer notre entier en une chaîne de caractère que l'on pourra alors print. On récupère les codes et les signaux avec les variables `WEXITSTATUS(status)` et `WTERMSIG(status)`.
+
+-----------------------------------------------------------------------------------------
+
+**Question 5 :** Pour cette question, il faut utiliser la fonction `clock_gettime()` qui vient stocker une valeur d'horloge dans une structure `timespec`. On vient donc créer 2 instances de cette structure une pour le debut du temps et une pour la fin. On place la mesure du début avant l'execution de la commande et la fin après la commande. On vient ensuite affichr dans notre terminal la différence entre ces deux mesures ce qui représente donc le temps d'éxecution de la commande.
+
+-----------------------------------------------------------------------------------------
+
+**Question 6 :** Le but de cette question est de cette fois ci pouvoir éxecuter des fonctions avec des arguments pour cela on doit utiliser la fonction `execvp` qui prend pour argument la commande initiale et un tableau contenant la commande et les options. Par exemple pour la commande `hostname -i`, il faut créer un tableau de chaînes de caractères que l'on appelle `command` et qui contient `command[0]='hostname'`, `command[1]='-i'` et `command[2]=NULL` et on utilise `execvp('hostname',command)`. Pour cela, il faut séparer les différents mots du buffer, on fait donc une boucle sur le buffer qui vient vérifier la présence du caractère espace pour séparer les mots tout en n'oubliant pas de rajouter le caractère de fin de ligne `\0` à la fin de chaque mot ainsi que `NULL` dans la dernière case du tableau `command`.
